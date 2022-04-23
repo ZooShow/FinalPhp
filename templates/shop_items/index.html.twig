@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список товаров{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+    <h1> {{ title }} </h1>
+    <div class="row">
+        {% for item in items %}
+            <div class="col-md-4">
+                <a href="{{ path('shop', {'id': item.id}) }}" class="itemClass">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ item.imgSrc}}">
+                        <div class="card-body">
+                            <h4>{{ item.name }}</h4>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5>{{ item.price }} руб.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

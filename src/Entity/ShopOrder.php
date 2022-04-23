@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ShopOrderRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ShopOrderRepository::class)
@@ -43,6 +45,12 @@ class ShopOrder
      * @ORM\Column(type="string", length=255)
      */
     private $userPhone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="shopOrders")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -105,6 +113,29 @@ class ShopOrder
     public function setUserPhone(string $userPhone): self
     {
         $this->userPhone = $userPhone;
+
+        return $this;
+    }
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('userPhone', new Assert\Regex([
+            'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/',
+            'message' => 'Телефонный номер "{{ value }}" введен неверно'
+        ]));
+        $metadata->addPropertyConstraint('userEmail', new Assert\Email([
+            'message' => 'Электронная почти "{{ value }}" введена неверно',
+        ]));
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

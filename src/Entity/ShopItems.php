@@ -34,6 +34,11 @@ class ShopItems
      */
     private $korzinas;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $imgSrc;
+
     public function __construct()
     {
         $this->korzinas = new ArrayCollection();
@@ -94,6 +99,18 @@ class ShopItems
                 $korzina->setItems(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImgSrc(): ?string
+    {
+        return $this->imgSrc;
+    }
+
+    public function setImgSrc(string $imgSrc): self
+    {
+        $this->imgSrc = $imgSrc;
 
         return $this;
     }
