@@ -29,9 +29,6 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {{ app.request.get('_route') == 'index' ? 'active' }}">
-                        <a class="nav-link" href="{{ path('index') }}">Товары</a>
-                    </li>
                 </ul>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="mt-2 mt-md-0">
